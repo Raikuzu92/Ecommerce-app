@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 
-const sequelize = require('../config/connection');
+const sequelize = require('../config/connection.js');
+
 
 class ProductTag extends Model {}
 
@@ -12,9 +13,21 @@ ProductTag.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    tag_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    product_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'product', // Referencing the Product model
+        key: 'id',
+      },
+      
+    },
+    tag_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'tag', // Referencing the Tag model
+        key: 'id',
+        
+      },
     },
   },
   {
@@ -25,5 +38,6 @@ ProductTag.init(
     modelName: 'product_tag',
   }
 );
+
 
 module.exports = ProductTag;
